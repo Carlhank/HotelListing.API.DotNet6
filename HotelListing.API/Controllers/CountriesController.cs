@@ -14,12 +14,15 @@ public class CountriesController : ControllerBase
 {
     private readonly IMapper _mapper;
     private readonly ICountriesRepository _countriesRepository;
+    private readonly ILogger<CountriesController> _logger;
 
     public CountriesController(IMapper mapper,
-        ICountriesRepository countriesRepository)
+        ICountriesRepository countriesRepository,
+        ILogger<CountriesController> logger)
     {
         _mapper = mapper;
         _countriesRepository = countriesRepository;
+        _logger = logger;
     }
 
     // GET: api/Countries

@@ -18,13 +18,16 @@ namespace HotelListing.API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IHotelsRepository _hotelsRepository;
+        private readonly ILogger<HotelsController> _logger;
 
         public HotelsController(
             IMapper mapper,
-            IHotelsRepository hotelsRepository)
+            IHotelsRepository hotelsRepository,
+            ILogger<HotelsController> logger)
         {
             _mapper = mapper;
             _hotelsRepository = hotelsRepository;
+            _logger = logger;
         }
 
         // GET: api/Hotels

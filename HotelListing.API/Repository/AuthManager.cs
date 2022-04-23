@@ -16,17 +16,20 @@ public class AuthManager : IAuthManager
     private readonly IMapper _mapper;
     private readonly UserManager<ApiUser> _userManager;
     private readonly IConfiguration _configuration;
+    private readonly ILogger<AuthManager> _logger;
     private ApiUser _user;
     private readonly string _loginProvider = "HotelListingApi";
     private readonly string _refreshToken = "RefreshToken";
 
     public AuthManager(IMapper mapper,
         UserManager<ApiUser> userManager,
-        IConfiguration configuration)
+        IConfiguration configuration,
+        ILogger<AuthManager> logger)
     {
         _mapper = mapper;
         _userManager = userManager;
         _configuration = configuration;
+        _logger = logger;
     }
     
     public async Task<IEnumerable<IdentityError>> Register(ApiUserDto userDto)
@@ -57,7 +60,8 @@ public class AuthManager : IAuthManager
         return new AuthResponseDto
         {
             Token = token,
-            UserId = _user.Id
+            UserId = _user.Id,
+            RefreshToken = await CreateRefreshToken()
         };
     }
 
